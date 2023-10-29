@@ -21,7 +21,7 @@ def encode(root):
     browse_label.pack(side=LEFT)
     def get_path():
         file_path = tkinter.filedialog.askdirectory()
-        browse_label.config(text=file_path)
+        browse_label.config(text=file_path.split("/")[-1])
         submit_button["state"] = NORMAL
     Button(frame2, text="Select Download Path", command=get_path).pack(side=LEFT)
     frame2.pack()
@@ -44,7 +44,7 @@ def decode(root):
     browse_label.pack(side=LEFT)
     def get_path():
         file_path = tkinter.filedialog.askopenfilename()
-        browse_label.config(text=file_path)
+        browse_label.config(text=file_path.split("/")[-1])
         submit_button["state"] = NORMAL
     Button(frame1, text="Select Qrcode Path", command=get_path).pack(side=LEFT)
     frame1.pack()

@@ -5,19 +5,20 @@ import os
 
 CANVAS_SIZE = "700x300"
 TITLE_FONT = "Arial 20"
+FRAME_PADDING = 5
 
 def encode(root):
-    frame0 = Frame(root)
+    frame0 = Frame(root, pady=FRAME_PADDING)
     Label(frame0, text="Make Qrcode", font=TITLE_FONT).pack()
     frame0.pack()
 
-    frame1 = Frame(root)
+    frame1 = Frame(root, pady=FRAME_PADDING)
     Label(frame1, text="Content of Qrcode").pack(side=LEFT)
     content_entry = Entry(frame1)
     content_entry.pack(side=LEFT)
     frame1.pack()
 
-    frame2 = Frame(root)
+    frame2 = Frame(root, pady=FRAME_PADDING)
     browse_label = Label(frame2, wraplength=root.winfo_width()/2)
     browse_label.pack(side=LEFT)
     def get_path():
@@ -28,7 +29,7 @@ def encode(root):
     Button(frame2, text="Select Download Path", command=get_path).pack(side=LEFT)
     frame2.pack()
 
-    frame3 = Frame(root)
+    frame3 = Frame(root, pady=FRAME_PADDING)
     def submit_stuff():
         code = make_code(content_entry.get())
         if not os.path.isfile(f"{file_path}/qrcode.png"):
@@ -45,11 +46,11 @@ def encode(root):
     frame3.pack()
 
 def decode(root):
-    frame0 = Frame(root)
+    frame0 = Frame(root, pady=FRAME_PADDING)
     Label(frame0, text="Decode Qrcode", font=TITLE_FONT).pack()
     frame0.pack()
 
-    frame1 = Frame(root)
+    frame1 = Frame(root, pady=FRAME_PADDING)
     browse_label = Label(frame1, wraplength=root.winfo_width()/2)
     browse_label.pack(side=LEFT)
     def get_path():
@@ -60,7 +61,7 @@ def decode(root):
     Button(frame1, text="Select Qrcode Path", command=get_path).pack(side=LEFT)
     frame1.pack()
 
-    frame2 = Frame(root)
+    frame2 = Frame(root, pady=FRAME_PADDING)
     def submit_stuff():
         data = decode_code(file_path)
         root.clipboard_append(data)
@@ -77,8 +78,8 @@ root.grid_columnconfigure(0, weight=1, uniform="group1")
 root.grid_columnconfigure(1, weight=1, uniform="group1")
 root.grid_rowconfigure(0, weight=1, uniform="group1")
 
-encode_frame = Frame(root, background="red")
-decode_frame = Frame(root, background="green")
+encode_frame = Frame(root)
+decode_frame = Frame(root)
 encode_frame.grid(row=0, column=0, sticky="nsew")
 decode_frame.grid(row=0, column=1, sticky="nsew")
 

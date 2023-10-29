@@ -9,7 +9,7 @@ FRAME_PADDING = 5
 
 def encode(root):
     frame0 = Frame(root, pady=FRAME_PADDING)
-    Label(frame0, text="Make QR Code", font=TITLE_FONT).pack()
+    Label(frame0, text="Create QR Code", font=TITLE_FONT).pack()
     frame0.pack()
 
     frame1 = Frame(root, pady=FRAME_PADDING)
@@ -41,7 +41,7 @@ def encode(root):
                 i += 1
             code.save(f"{file_path}/qrcode{i}.png")
         messagebox.showinfo(title="Success", message=f"QR code saved as \"qrcode{i}.png.\"")
-    submit_button = Button(frame3, text="Submit", command=submit_stuff, state=DISABLED)
+    submit_button = Button(frame3, text="Download", command=submit_stuff, state=DISABLED)
     submit_button.pack()
     frame3.pack()
 
@@ -67,7 +67,7 @@ def decode(root):
         root.clipboard_append(data)
         root.update()
         messagebox.showinfo(title="Success", message=f"QR code data \"{data}\" copied to clipboard.")
-    submit_button = Button(frame2, text="Submit", command=submit_stuff, state=DISABLED)
+    submit_button = Button(frame2, text="Decode", command=submit_stuff, state=DISABLED)
     submit_button.pack()
     frame2.pack()
 

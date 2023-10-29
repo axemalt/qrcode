@@ -9,11 +9,11 @@ FRAME_PADDING = 5
 
 def encode(root):
     frame0 = Frame(root, pady=FRAME_PADDING)
-    Label(frame0, text="Make Qrcode", font=TITLE_FONT).pack()
+    Label(frame0, text="Make QR Code", font=TITLE_FONT).pack()
     frame0.pack()
 
     frame1 = Frame(root, pady=FRAME_PADDING)
-    Label(frame1, text="Content of Qrcode").pack(side=LEFT)
+    Label(frame1, text="Content of QR Code").pack(side=LEFT)
     content_entry = Entry(frame1)
     content_entry.pack(side=LEFT)
     frame1.pack()
@@ -40,14 +40,14 @@ def encode(root):
             while os.path.isfile(f"{file_path}/qrcode{i}.png"):
                 i += 1
             code.save(f"{file_path}/qrcode{i}.png")
-        messagebox.showinfo(title="Success", message=f"Qrcode saved as \"qrcode{i}.png.\"")
+        messagebox.showinfo(title="Success", message=f"QR code saved as \"qrcode{i}.png.\"")
     submit_button = Button(frame3, text="Submit", command=submit_stuff, state=DISABLED)
     submit_button.pack()
     frame3.pack()
 
 def decode(root):
     frame0 = Frame(root, pady=FRAME_PADDING)
-    Label(frame0, text="Decode Qrcode", font=TITLE_FONT).pack()
+    Label(frame0, text="Decode QR Code", font=TITLE_FONT).pack()
     frame0.pack()
 
     frame1 = Frame(root, pady=FRAME_PADDING)
@@ -58,7 +58,7 @@ def decode(root):
         file_path = filedialog.askopenfilename()
         browse_label.config(text=file_path.split("/")[-1])
         submit_button["state"] = NORMAL
-    Button(frame1, text="Select Qrcode Path", command=get_path).pack(side=LEFT)
+    Button(frame1, text="Select QR Code Path", command=get_path).pack(side=LEFT)
     frame1.pack()
 
     frame2 = Frame(root, pady=FRAME_PADDING)
@@ -66,13 +66,13 @@ def decode(root):
         data = decode_code(file_path)
         root.clipboard_append(data)
         root.update()
-        messagebox.showinfo(title="Success", message=f"Qrcode data \"{data}\" copied to clipboard.")
+        messagebox.showinfo(title="Success", message=f"QR code data \"{data}\" copied to clipboard.")
     submit_button = Button(frame2, text="Submit", command=submit_stuff, state=DISABLED)
     submit_button.pack()
     frame2.pack()
 
 root = Tk()
-root.title("Qrcode App")
+root.title("QR Code App")
 root.geometry(CANVAS_SIZE)
 root.grid_columnconfigure(0, weight=1, uniform="group1")
 root.grid_columnconfigure(1, weight=1, uniform="group1")

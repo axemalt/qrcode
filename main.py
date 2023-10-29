@@ -22,14 +22,16 @@ def encode(root):
     def get_path():
         file_path = tkinter.filedialog.askdirectory()
         browse_label.config(text=file_path)
-    Button(frame2, text="Browse Path", command=get_path).pack(side=LEFT)
+        submit_button["state"] = NORMAL
+    Button(frame2, text="Select Download Path", command=get_path).pack(side=LEFT)
     frame2.pack()
 
     frame3 = Frame(root)
     def submit_stuff():
         code = make_code(content_entry.get())
         code.save(browse_label.cget("text") + "/qrcode.png")
-    Button(frame3, text="Submit", command=submit_stuff).pack()
+    submit_button = Button(frame3, text="Submit", command=submit_stuff, state=DISABLED)
+    submit_button.pack()
     frame3.pack()
 
 def decode(root):
@@ -43,14 +45,16 @@ def decode(root):
     def get_path():
         file_path = tkinter.filedialog.askopenfilename()
         browse_label.config(text=file_path)
-    Button(frame1, text="Browse Image", command=get_path).pack(side=LEFT)
+        submit_button["state"] = NORMAL
+    Button(frame1, text="Select Qrcode Path", command=get_path).pack(side=LEFT)
     frame1.pack()
 
     frame2 = Frame(root)
     def submit_stuff():
         data = decode_code(browse_label.cget("text"))
         print(data)
-    Button(frame2, text="Submit", command=submit_stuff).pack()
+    submit_button = Button(frame2, text="Submit", command=submit_stuff, state=DISABLED)
+    submit_button.pack()
     frame2.pack()
 
 root = Tk()

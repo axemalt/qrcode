@@ -40,7 +40,7 @@ def encode(root):
             while os.path.isfile(f"{file_path}/qrcode{i}.png"):
                 i += 1
             code.save(f"{file_path}/qrcode{i}.png")
-        messagebox.showinfo(title="Success", message=f"Image saved as \"qrcode{i}.png.\"")
+        messagebox.showinfo(title="Success", message=f"Qrcode saved as \"qrcode{i}.png.\"")
     submit_button = Button(frame3, text="Submit", command=submit_stuff, state=DISABLED)
     submit_button.pack()
     frame3.pack()

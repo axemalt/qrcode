@@ -7,6 +7,8 @@ CANVAS_SIZE = "700x300"
 TITLE_FONT = "Arial 20"
 FRAME_PADDING = 5
 
+paths = ["", ""]
+
 def encode(root):
     frame0 = Frame(root, pady=FRAME_PADDING)
     Label(frame0, text="Create QR Code", font=TITLE_FONT).pack()
@@ -22,24 +24,24 @@ def encode(root):
     browse_label = Label(frame2, wraplength=root.winfo_width()/2)
     browse_label.pack(side=LEFT)
     def get_path():
-        global file_path
         file_path = filedialog.askdirectory()
         browse_label.config(text=file_path.split("/")[-1])
         submit_button["state"] = NORMAL
+        paths[0] = file_path
     Button(frame2, text="Select Download Path", command=get_path).pack(side=LEFT)
     frame2.pack()
 
     frame3 = Frame(root, pady=FRAME_PADDING)
     def submit_stuff():
         code = make_code(content_entry.get())
-        if not os.path.isfile(f"{file_path}/qrcode.png"):
+        if not os.path.isfile(f"{paths[0]}/qrcode.png"):
             i = ""
-            code.save(f"{file_path}/qrcode.png")
+            code.save(f"{paths[0]}/qrcode.png")
         else:
             i = 0
-            while os.path.isfile(f"{file_path}/qrcode{i}.png"):
+            while os.path.isfile(f"{paths[0]}/qrcode{i}.png"):
                 i += 1
-            code.save(f"{file_path}/qrcode{i}.png")
+            code.save(f"{paths[0]}/qrcode{i}.png")
         messagebox.showinfo(title="Success", message=f"QR code saved as \"qrcode{i}.png.\"")
     submit_button = Button(frame3, text="Download", command=submit_stuff, state=DISABLED)
     submit_button.pack()
@@ -54,16 +56,16 @@ def decode(root):
     browse_label = Label(frame1, wraplength=root.winfo_width()/2)
     browse_label.pack(side=LEFT)
     def get_path():
-        global file_path
         file_path = filedialog.askopenfilename()
         browse_label.config(text=file_path.split("/")[-1])
         submit_button["state"] = NORMAL
+        paths[1] = file_path
     Button(frame1, text="Select QR Code Path", command=get_path).pack(side=LEFT)
     frame1.pack()
 
     frame2 = Frame(root, pady=FRAME_PADDING)
     def submit_stuff():
-        data = decode_code(file_path)
+        data = decode_code(paths[1])
         root.clipboard_append(data)
         root.update()
         messagebox.showinfo(title="Success", message=f"QR code data \"{data}\" copied to clipboard.")

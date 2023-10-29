@@ -1,6 +1,6 @@
 from qr_code import make_code, decode_code
 from tkinter import *
-import tkinter.filedialog
+from tkinter import filedialog, messagebox
 import os
 
 CANVAS_SIZE = "700x300"
@@ -22,7 +22,7 @@ def encode(root):
     browse_label.pack(side=LEFT)
     def get_path():
         global file_path
-        file_path = tkinter.filedialog.askdirectory()
+        file_path = filedialog.askdirectory()
         browse_label.config(text=file_path.split("/")[-1])
         submit_button["state"] = NORMAL
     Button(frame2, text="Select Download Path", command=get_path).pack(side=LEFT)
@@ -32,12 +32,14 @@ def encode(root):
     def submit_stuff():
         code = make_code(content_entry.get())
         if not os.path.isfile(f"{file_path}/qrcode.png"):
+            i = ""
             code.save(f"{file_path}/qrcode.png")
         else:
             i = 0
-            while os.path.isfile(f"{file_path}/qrcode_{i}.png"):
+            while os.path.isfile(f"{file_path}/qrcode{i}.png"):
                 i += 1
-            code.save(f"{file_path}/qrcode_{i}.png")
+            code.save(f"{file_path}/qrcode{i}.png")
+        messagebox.showinfo(title="Success", message=f"Image saved as qrcode{i}.png")
     submit_button = Button(frame3, text="Submit", command=submit_stuff, state=DISABLED)
     submit_button.pack()
     frame3.pack()
@@ -52,7 +54,7 @@ def decode(root):
     browse_label.pack(side=LEFT)
     def get_path():
         global file_path
-        file_path = tkinter.filedialog.askopenfilename()
+        file_path = filedialog.askopenfilename()
         browse_label.config(text=file_path.split("/")[-1])
         submit_button["state"] = NORMAL
     Button(frame1, text="Select Qrcode Path", command=get_path).pack(side=LEFT)

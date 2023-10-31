@@ -66,6 +66,7 @@ def decode(root):
     frame2 = Frame(root, pady=FRAME_PADDING)
     def submit_stuff():
         data = decode_code(paths[1])
+        root.clipboard_clear()
         root.clipboard_append(data)
         root.update()
         messagebox.showinfo(title="Success", message=f"QR code data \"{data}\" copied to clipboard.")
